@@ -4,7 +4,7 @@ function App() {
   return (
     <main className="portfolio">
       <nav className="navbar">
-        <h3 className="logo">Kevin Yuan</h3>
+        <h3 className="logo">Kai Wen Yuan</h3>
 
         <div className="nav-links">
           <a href="#about">About</a>
@@ -16,7 +16,7 @@ function App() {
       <section className="hero">
         <p className="hero-tag">UI/UX DESIGN • FRONTEND DEVELOPMENT</p>
 
-        <h1>Kevin Yuan</h1>
+        <h1>Kai Wen Yuan</h1>
 
         <p className="hero-text">
           Designing modern interfaces focused on clarity, usability, and visual
@@ -125,7 +125,7 @@ function App() {
       </section>
 
       <footer className="footer">
-        <p>© 2026 Kevin Yuan Portfolio</p>
+        <p>© 2026 Kai Wen Yuan Portfolio</p>
       </footer>
     </main>
   );
