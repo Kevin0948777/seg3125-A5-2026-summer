@@ -2,10 +2,6 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   margin: 0;
   background: #f8fafc;
@@ -13,553 +9,228 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-h1,
-h2,
-h3,
-h4 {
-  color: #1e293b;
+.app {
+  min-height: 100vh;
+  padding: 40px 7%;
 }
-
-.site {
-  width: 100%;
-}
-
-/* NAVBAR */
-
-.navbar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  padding: 18px 7%;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid #e2e8f0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  margin: 0;
-  color: #0f766e;
-  font-size: 26px;
-}
-
-.nav-links {
-  display: flex;
-  gap: 24px;
-}
-
-.nav-links a {
-  color: #0f172a;
-  text-decoration: none;
-  font-weight: 700;
-}
-
-.nav-links a:hover {
-  color: #0f766e;
-}
-
-/* HERO */
 
 .hero {
-  min-height: 86vh;
-  padding: 90px 7%;
-  display: grid;
-  grid-template-columns: 1.3fr 0.7fr;
-  gap: 40px;
-  align-items: center;
-  background:
-    radial-gradient(circle at top right, #99f6e4, transparent 35%),
-    linear-gradient(135deg, #ecfeff, #ffffff);
-  scroll-margin-top: 100px;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 40px;
+  background: white;
+  padding: 50px;
+  border-radius: 24px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
 }
 
-.eyebrow {
-  color: #0f766e;
+.tag {
+  color: #dc2626;
   font-weight: 800;
   letter-spacing: 2px;
-  font-size: 14px;
-  margin-bottom: 14px;
-}
-
-.center {
-  text-align: center;
 }
 
 .hero h1 {
-  font-size: 68px;
-  line-height: 1.04;
-  margin: 0;
-  max-width: 850px;
-  color: #0f172a;
-  font-weight: 800;
+  font-size: 64px;
+  color: #dc2626;
+  margin-top: 10px;
+  margin-bottom: 35px;
+  line-height: 1.1;
 }
 
-.hero-description {
-  font-size: 22px;
-  color: #475569;
-  line-height: 1.7;
-  max-width: 720px;
-  margin: 28px 0;
-}
-
-.hero-buttons {
-  display: flex;
-  gap: 18px;
-}
-
-.primary-btn,
-.secondary-btn {
-  display: inline-block;
-  padding: 15px 28px;
-  border-radius: 999px;
-  text-decoration: none;
-  font-weight: 800;
-  transition: 0.25s;
-}
-
-.primary-btn {
-  background: #0f766e;
-  color: white;
-}
-
-.primary-btn:hover {
-  background: #115e59;
-  transform: translateY(-3px);
-}
-
-.secondary-btn {
-  color: #0f766e;
-  border: 2px solid #0f766e;
-}
-
-.secondary-btn:hover {
-  background: #ccfbf1;
-  transform: translateY(-3px);
-}
-
-.hero-panel {
-  background: white;
-  border-radius: 28px;
-  padding: 34px;
-  border: 1px solid #dbeafe;
-  box-shadow: 0 24px 55px rgba(15, 23, 42, 0.14);
-}
-
-.hero-panel h3 {
-  color: #0f766e;
-  font-size: 30px;
-  margin-top: 0;
-}
-
-.hero-panel p {
-  color: #475569;
-  font-size: 17px;
-  line-height: 1.6;
-}
-
-.hero-right {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 25px;
-}
-
-.hero-image {
-  width: 100%;
-  max-width: 300px;
-  height: auto;
-
-  filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.2));
-}
-
-/* TRUST SECTION */
-
-.trust-section {
-  padding: 0 7%;
-  margin-top: -55px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-  position: relative;
-  z-index: 2;
-}
-
-.trust-card {
-  background: white;
-  padding: 26px;
-  border-radius: 22px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 16px 35px rgba(15, 23, 42, 0.09);
-}
-
-.trust-card h3 {
-  color: #0f766e;
-  margin-top: 0;
-}
-
-.trust-card p {
-  color: #475569;
-  line-height: 1.6;
-}
-
-/* GENERAL SECTIONS */
-
-.section {
-  padding: 95px 7%;
-  scroll-margin-top: 100px;
-}
-
-.section h2,
-.root-canal-section h2 {
-  font-size: 46px;
-  text-align: center;
-  margin: 0 0 22px;
-  color: #0f172a;
-  font-weight: 800;
-  line-height: 1.2;
-}
-
-.section-intro {
-  max-width: 860px;
-  margin: 0 auto 48px;
-  text-align: center;
-  color: #475569;
+.hero p {
   font-size: 20px;
+  color: #334155;
   line-height: 1.7;
 }
 
-/* SERVICES */
-
-.service-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-}
-
-.service-card {
+.settings {
   background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 26px;
-  padding: 30px;
-  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.08);
-  transition: 0.25s;
-}
-
-.service-card:hover {
-  transform: translateY(-8px);
-  border-color: #0f766e;
-}
-
-.service-card i {
-  font-size: 42px;
-  color: #0f766e;
-}
-
-.service-card h3 {
-  font-size: 26px;
-  margin-bottom: 12px;
-}
-
-.service-card p {
-  color: #475569;
-  line-height: 1.65;
-}
-
-.service-card strong {
-  color: #0f766e;
-}
-
-.featured-card {
-  background: #0f766e;
-  color: white;
-}
-
-.featured-card i,
-.featured-card strong {
-  color: #ccfbf1;
-}
-
-.featured-card p {
-  color: #ecfeff;
-}
-
-/* ROOT CANAL INFO */
-
-.root-canal-section {
-  margin: 20px 7%;
-  padding: 55px;
-  background: #0f172a;
-  color: white;
-  border-radius: 34px;
+  border-radius: 24px;
+  padding: 28px;
   display: grid;
-  grid-template-columns: 0.8fr 1.2fr;
-  gap: 40px;
-  align-items: center;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto 28px;
+  box-shadow: 0 15px 35px rgba(15, 23, 42, 0.1);
 }
 
-.root-canal-section h2 {
-  text-align: left;
-  color: white;
-}
-
-.root-canal-section p {
-  color: #dbeafe;
-  font-size: 20px;
-  line-height: 1.8;
-}
-
-/* DENTISTS */
-
-.dentist-grid {
+.settings label {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  max-width: 850px;
-  margin: 0 auto;
-}
-
-.dentist-card {
-  background: white;
-  border-radius: 26px;
-  padding: 34px;
-  text-align: center;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.08);
-}
-
-.avatar {
-  width: 78px;
-  height: 78px;
-  margin: 0 auto 18px;
-  border-radius: 50%;
-  background: #ccfbf1;
-  color: #0f766e;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 26px;
-  font-weight: 900;
-}
-
-.dentist-card h3 {
-  font-size: 26px;
-  margin-bottom: 8px;
-}
-
-.dentist-card p {
-  color: #475569;
-}
-
-/* BOOKING */
-
-.booking-section {
-  background: #ecfeff;
-}
-
-.booking-form {
-  max-width: 780px;
-  margin: 0 auto;
-  background: white;
-  border-radius: 28px;
-  padding: 38px;
-  display: grid;
-  gap: 24px;
-  border: 1px solid #bae6fd;
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.1);
-}
-
-.booking-form label {
-  display: grid;
-  gap: 10px;
+  gap: 8px;
   font-weight: 800;
 }
 
-.booking-form select,
-.booking-form input {
-  padding: 15px;
+.settings select,
+.settings button {
+  padding: 14px;
   border-radius: 14px;
   border: 1px solid #cbd5e1;
   font-size: 16px;
 }
 
-.booking-form button {
-  padding: 16px;
-  border: none;
-  border-radius: 999px;
-  background: #0f766e;
+.settings button {
+  background: #dc2626;
   color: white;
-  font-size: 17px;
   font-weight: 900;
   cursor: pointer;
-  transition: 0.25s;
+  border: none;
 }
 
-.booking-form button:hover {
-  background: #115e59;
-  transform: translateY(-3px);
+.settings button:hover {
+  background: #b91c1c;
 }
 
-.confirmation {
-  max-width: 780px;
-  margin: 28px auto 0;
-  background: #dcfce7;
-  border: 1px solid #22c55e;
-  border-radius: 22px;
-  padding: 26px;
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 32px;
 }
 
-.confirmation h3 {
-  color: #047857;
-  margin-top: 0;
+.stats div {
+  background: white;
+  border-radius: 18px;
+  padding: 18px 28px;
+  min-width: 130px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
 }
 
-.confirmation p {
-  color: #064e3b;
-  line-height: 1.6;
+.stats strong {
+  display: block;
+  font-size: 30px;
+  color: #dc2626;
 }
 
-/* FAQ */
+.stats span {
+  color: #475569;
+  font-weight: 700;
+}
 
-.faq-list {
-  max-width: 850px;
+.game-board {
+  max-width: 760px;
   margin: 0 auto;
   display: grid;
+  grid-template-columns: repeat(4, 110px);
   gap: 16px;
+  justify-content: center;
 }
 
-details {
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 18px;
-  padding: 22px;
-  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.06);
+.advanced-board {
+  max-width: 980px;
+  grid-template-columns: repeat(6, 95px);
 }
 
-summary {
-  cursor: pointer;
+.card {
+  width: 110px;
+  height: 110px;
+  min-width: 110px;
+  min-height: 110px;
+  border: none;
+  border-radius: 22px;
+  background: #dc2626;
+  color: white;
+  font-size: 42px;
   font-weight: 900;
-  color: #0f766e;
-  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(220, 38, 38, 0.25);
+  transition: transform 0.25s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-details p {
-  color: #475569;
+.advanced-board .card {
+  width: 95px;
+  height: 95px;
+  min-width: 95px;
+  min-height: 95px;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card.flipped {
+  background: white;
+  color: #0f172a;
+  border: 3px solid #dc2626;
+}
+
+.pokemon-card {
+  width: 72px;
+  height: 72px;
+  max-width: 72px;
+  max-height: 72px;
+  object-fit: contain;
+  display: block;
+}
+
+.advanced-board .pokemon-card {
+  width: 62px;
+  height: 62px;
+  max-width: 62px;
+  max-height: 62px;
+}
+
+.instruction-box,
+.win-box {
+  max-width: 760px;
+  margin: 40px auto;
+  background: white;
+  border-radius: 24px;
+  padding: 32px;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(15, 23, 42, 0.1);
+}
+
+.instruction-box h2,
+.win-box h2 {
+  font-size: 36px;
+  margin-top: 0;
+  color: #dc2626;
+}
+
+.instruction-box p,
+.win-box p {
+  font-size: 19px;
+  color: #334155;
   line-height: 1.7;
 }
 
-/* CONTACT */
-
-.contact-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 22px;
-}
-
-.contact-card {
-  background: white;
-  border-radius: 24px;
-  padding: 28px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.08);
-}
-
-.contact-card h3 {
-  color: #0f766e;
-  font-size: 24px;
-  margin-top: 0;
-}
-
-.contact-card p {
-  color: #475569;
-}
-
-/* FOOTER */
-
-.footer {
-  background: #0f172a;
+.win-box button {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 999px;
+  background: #dc2626;
   color: white;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+footer {
   text-align: center;
-  padding: 38px 20px;
+  margin-top: 60px;
+  color: #64748b;
 }
 
-.footer p {
-  margin: 8px 0;
-}
-
-/* RESPONSIVE */
-
-@media (max-width: 1100px) {
-  .hero,
-  .root-canal-section {
-    grid-template-columns: 1fr;
-  }
-
-  .service-grid,
-  .contact-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .hero h1 {
-    font-size: 54px;
-  }
-}
-
-@media (max-width: 750px) {
-  .navbar {
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .hero {
-    padding: 70px 6%;
-  }
-
+@media (max-width: 800px) {
   .hero h1 {
     font-size: 42px;
   }
 
-  .hero-description {
-    font-size: 18px;
+  .settings {
+    grid-template-columns: 1fr;
   }
 
-  .hero-buttons {
+
+  .stats {
     flex-direction: column;
+    align-items: center;
   }
 
-  .trust-section {
-    grid-template-columns: 1fr;
-    margin-top: 0;
-    padding-top: 30px;
-  }
 
-  .section {
-    padding: 75px 6%;
-  }
-
-  .section h2,
-  .root-canal-section h2 {
-    font-size: 34px;
-  }
-
-  .service-grid,
-  .dentist-grid,
-  .contact-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .root-canal-section {
-    margin: 20px 6%;
-    padding: 32px;
-  }
-
-  .booking-form {
-    padding: 28px;
-  }
 }

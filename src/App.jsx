@@ -1,319 +1,203 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
-import bidoof from "./assets/bidoof.png";
+
+import arceus from "./assets/pokemon/arceus.png";
+import bidoof from "./assets/pokemon/bidoof.png";
+import chimchar from "./assets/pokemon/chimchar.png";
+import dialga from "./assets/pokemon/dialga.png";
+import garchomp from "./assets/pokemon/garchomp.png";
+import giratina from "./assets/pokemon/giratina.png";
+import magnezone from "./assets/pokemon/magnezone.png";
+import palkia from "./assets/pokemon/palkia.png";
+import pikachu from "./assets/pokemon/pikaichu.webp";
+import piplup from "./assets/pokemon/piplup.png";
+import staraptor from "./assets/pokemon/Staraptor.png";
+import turtwig from "./assets/pokemon/Turtwig.png";
+
+const themes = {
+  Pokemon: [
+    arceus,
+    bidoof,
+    chimchar,
+    dialga,
+    garchomp,
+    giratina,
+    magnezone,
+    palkia,
+    pikachu,
+    piplup,
+    staraptor,
+    turtwig,
+  ],
+  Animals: ["🐶", "🐱", "🐰", "🦊", "🐼", "🐸", "🐵", "🐧", "🦁", "🐯", "🐨", "🐮"],
+  Food: ["🍕", "🍔", "🍟", "🌮", "🍣", "🍩", "🍎", "🍇", "🍪", "🍰", "🥐", "🍜"],
+};
+
+const levels = {
+  Beginner: 6,
+  Intermediate: 8,
+  Advanced: 12,
+};
+
+function shuffleCards(array) {
+  return [...array].sort(() => Math.random() - 0.5);
+}
 
 function App() {
-  const [service, setService] = useState("");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [confirmed, setConfirmed] = useState(false);
+  const [level, setLevel] = useState("Beginner");
+  const [theme, setTheme] = useState("Pokemon");
+  const [cards, setCards] = useState([]);
+  const [flipped, setFlipped] = useState([]);
+  const [matched, setMatched] = useState([]);
+  const [moves, setMoves] = useState(0);
+  const [gameStarted, setGameStarted] = useState(false);
 
-  function handleSubmit(event) {
-    event.preventDefault();
+  function startGame() {
+    const pairCount = levels[level];
+    const selectedItems = themes[theme].slice(0, pairCount);
 
-    if (!service || !date || !time) {
-      alert("Please select a service, date, and time.");
+    const cardPairs = [...selectedItems, ...selectedItems].map((item, index) => ({
+      id: index,
+      item,
+    }));
+
+    setCards(shuffleCards(cardPairs));
+    setFlipped([]);
+    setMatched([]);
+    setMoves(0);
+    setGameStarted(true);
+  }
+
+  function handleCardClick(card) {
+    if (
+      flipped.length === 2 ||
+      flipped.some((item) => item.id === card.id) ||
+      matched.includes(card.item)
+    ) {
       return;
     }
 
-    setConfirmed(true);
+    setFlipped([...flipped, card]);
   }
 
+  useEffect(() => {
+    if (flipped.length === 2) {
+      setMoves((previous) => previous + 1);
+
+      if (flipped[0].item === flipped[1].item) {
+        setMatched((previous) => [...previous, flipped[0].item]);
+        setTimeout(() => setFlipped([]), 700);
+      } else {
+        setTimeout(() => setFlipped([]), 900);
+      }
+    }
+  }, [flipped]);
+
+  const won = gameStarted && matched.length === levels[level];
+
   return (
-    <main className="site">
-      <nav className="navbar">
-        <h2 className="logo">Bidoof Dental</h2>
-
-        <div className="nav-links">
-          <a href="#home">Home</a>
-          <a href="#services">Services</a>
-          <a href="#dentists">Dentists</a>
-          <a href="#booking">Book</a>
-          <a href="#contact">Contact</a>
-        </div>
-      </nav>
-
-      <section className="hero" id="home">
-        <div className="hero-textbox">
-          <p className="eyebrow">FAMILY DENTAL CLINIC</p>
-
-          <h1>Comfortable dental care for confident smiles.</h1>
-
-          <p className="hero-description">
-            Bidoof Dental helps patients book appointments, explore
-            services, and understand treatments in a simple and accessible way.
-          </p>
-
-          <div className="hero-buttons">
-            <a href="#booking" className="primary-btn">
-              Book Appointment
-            </a>
-
-            <a href="#services" className="secondary-btn">
-              View Services
-            </a>
-          </div>
-        </div>
-
-        <div className="hero-right">
-  <div className="hero-panel">
-    <h3>Today's Availability</h3>
-    <p>Cleaning: 10:30 AM, 2:30 PM</p>
-    <p>Consultation: 1:00 PM, 4:00 PM</p>
-    <p>Emergency Care: Call clinic</p>
-  </div>
-
-  <img
-    src={bidoof}
-    alt="Bidoof mascot"
-    className="hero-image"
-  />
-</div>
-
-        
-      </section>
-
-      <section className="trust-section">
-        <div className="trust-card">
-          <h3>Clear Prices</h3>
-          <p>Service costs are shown before booking.</p>
-        </div>
-
-        <div className="trust-card">
-          <h3>Easy Booking</h3>
-          <p>Choose a service, date, and time in one place.</p>
-        </div>
-
-        <div className="trust-card">
-          <h3>Patient Friendly</h3>
-          <p>Information is written in simple language.</p>
-        </div>
-      </section>
-
-      <section className="section" id="services">
-        <p className="eyebrow center">SERVICES</p>
-        <h2>Dental services made simple</h2>
-
-        <p className="section-intro">
-          The service cards help users compare options quickly before deciding
-          whether to book an appointment or contact the clinic.
+    <main className="app">
+      <header className="hero">
+        <p className="tag">SEG3125 MEMORY GAME</p>
+        <h1>Memory Match Challenge</h1>
+        <p>
+          Flip cards, remember their positions, and match all pairs. Choose a
+          level and theme before starting the game.
         </p>
+      </header>
 
-        <div className="service-grid">
-          <article className="service-card">
-            <i className="ti ti-brush"></i>
-            <h3>Dental Cleaning</h3>
-            <p>
-              Routine cleaning, polishing, and oral health checkup for regular
-              patients.
-            </p>
-            <strong>Starting at $120</strong>
-          </article>
+      <section className="settings">
+        <label>
+          Level
+          <select value={level} onChange={(e) => setLevel(e.target.value)}>
+            <option>Beginner</option>
+            <option>Intermediate</option>
+            <option>Advanced</option>
+          </select>
+        </label>
 
-          <article className="service-card">
-            <i className="ti ti-shield-check"></i>
-            <h3>Fillings</h3>
-            <p>
-              Tooth-colored fillings used to repair cavities and protect damaged
-              teeth.
-            </p>
-            <strong>Starting at $180</strong>
-          </article>
+        <label>
+          Theme
+          <select value={theme} onChange={(e) => setTheme(e.target.value)}>
+            <option>Pokemon</option>
+            <option>Animals</option>
+            <option>Food</option>
+          </select>
+        </label>
 
-          <article className="service-card featured-card">
-            <i className="ti ti-heart-plus"></i>
-            <h3>Root Canal</h3>
-            <p>
-              Treatment for infected or painful teeth that helps save the tooth
-              and reduce discomfort.
-            </p>
-            <strong>Starting at $850</strong>
-          </article>
-
-          <article className="service-card">
-            <i className="ti ti-sparkles"></i>
-            <h3>Teeth Whitening</h3>
-            <p>
-              Cosmetic whitening service for patients who want a brighter smile.
-            </p>
-            <strong>Starting at $250</strong>
-          </article>
-        </div>
+        <button onClick={startGame}>Start Game</button>
       </section>
 
-      <section className="root-canal-section">
+      <section className="stats">
         <div>
-          <p className="eyebrow">PATIENT EDUCATION</p>
-          <h2>What is a root canal?</h2>
+          <strong>{moves}</strong>
+          <span>Moves</span>
         </div>
 
         <div>
+          <strong>{matched.length}</strong>
+          <span>Matches</span>
+        </div>
+
+        <div>
+          <strong>{levels[level]}</strong>
+          <span>Total Pairs</span>
+        </div>
+      </section>
+
+      {gameStarted && (
+        <section className={`game-board ${level === "Advanced" ? "advanced-board" : ""}`}>
+          {cards.map((card) => {
+            const isFlipped =
+              flipped.some((item) => item.id === card.id) ||
+              matched.includes(card.item);
+
+            const isImage = typeof card.item === "string" && card.item.includes("/assets/");
+
+            return (
+              <button
+                key={card.id}
+                className={`card ${isFlipped ? "flipped" : ""}`}
+                onClick={() => handleCardClick(card)}
+              >
+                {isFlipped ? (
+                  isImage ? (
+                    <img src={card.item} alt="Pokemon card" className="pokemon-card" />
+                  ) : (
+                    card.item
+                  )
+                ) : (
+                  "?"
+                )}
+              </button>
+            );
+          })}
+        </section>
+      )}
+
+      {!gameStarted && (
+        <section className="instruction-box">
+          <h2>How to Play</h2>
           <p>
-            A root canal is a procedure used when the inside of a tooth becomes
-            infected or inflamed. The dentist removes the damaged tissue, cleans
-            the inside of the tooth, and seals it to help save the tooth.
+            Select a level and theme, then click Start Game. Flip two cards at a
+            time and try to remember where each icon is located.
           </p>
+        </section>
+      )}
 
+      {won && (
+        <section className="win-box">
+          <h2>You Win!</h2>
           <p>
-            This information supports users who want to understand a treatment
-            before booking an appointment.
+            You matched all pairs in <strong>{moves}</strong> moves.
           </p>
-        </div>
-      </section>
+          <button onClick={startGame}>Play Again</button>
+        </section>
+      )}
 
-      <section className="section" id="dentists">
-        <p className="eyebrow center">OUR TEAM</p>
-        <h2>Meet our dentists</h2>
-
-        <div className="dentist-grid">
-          <div className="dentist-card">
-            <div className="avatar">AL</div>
-            <h3>Dr. Amanda Lee</h3>
-            <p>Family Dentistry</p>
-          </div>
-
-          <div className="dentist-card">
-            <div className="avatar">MP</div>
-            <h3>Dr. Michael Patel</h3>
-            <p>Root Canal Consultation</p>
-          </div>
-        </div>
-      </section>
-
-      <section className="booking-section section" id="booking">
-        <p className="eyebrow center">BOOKING</p>
-        <h2>Book an appointment</h2>
-
-        <p className="section-intro">
-          This interactive form allows users to choose a service, date, and
-          available time. A confirmation message appears after submission.
-        </p>
-
-        <form className="booking-form" onSubmit={handleSubmit}>
-          <label>
-            Service
-            <select
-              value={service}
-              onChange={(event) => {
-                setService(event.target.value);
-                setConfirmed(false);
-              }}
-            >
-              <option value="">Choose a service</option>
-              <option value="Dental Cleaning">Dental Cleaning</option>
-              <option value="Fillings">Fillings</option>
-              <option value="Root Canal">Root Canal</option>
-              <option value="Teeth Whitening">Teeth Whitening</option>
-            </select>
-          </label>
-
-          <label>
-            Date
-            <input
-              type="date"
-              value={date}
-              onChange={(event) => {
-                setDate(event.target.value);
-                setConfirmed(false);
-              }}
-            />
-          </label>
-
-          <label>
-            Time
-            <select
-              value={time}
-              onChange={(event) => {
-                setTime(event.target.value);
-                setConfirmed(false);
-              }}
-            >
-              <option value="">Choose a time</option>
-              <option value="9:00 AM">9:00 AM</option>
-              <option value="10:30 AM">10:30 AM</option>
-              <option value="1:00 PM">1:00 PM</option>
-              <option value="2:30 PM">2:30 PM</option>
-              <option value="4:00 PM">4:00 PM</option>
-            </select>
-          </label>
-
-          <button type="submit">Confirm Appointment</button>
-        </form>
-
-        {confirmed && (
-          <div className="confirmation">
-            <h3>Appointment Confirmed</h3>
-            <p>
-              Your appointment for <strong>{service}</strong> has been requested
-              for <strong> {date}</strong> at <strong>{time}</strong>.
-            </p>
-          </div>
-        )}
-      </section>
-
-      <section className="section faq-section">
-        <p className="eyebrow center">FAQ</p>
-        <h2>Common questions</h2>
-
-        <div className="faq-list">
-          <details>
-            <summary>Do I need an appointment?</summary>
-            <p>
-              Yes. Most services require an appointment, but emergency cases can
-              contact the clinic directly.
-            </p>
-          </details>
-
-          <details>
-            <summary>How much does a cleaning cost?</summary>
-            <p>
-              A standard dental cleaning starts at $120, depending on patient
-              needs.
-            </p>
-          </details>
-
-          <details>
-            <summary>Can I learn about services before booking?</summary>
-            <p>
-              Yes. The service section explains common treatments and starting
-              prices.
-            </p>
-          </details>
-        </div>
-      </section>
-
-      <section className="section contact-section" id="contact">
-        <p className="eyebrow center">CONTACT</p>
-        <h2>Visit Bidoof Dental</h2>
-
-        <div className="contact-grid">
-          <div className="contact-card">
-            <h3>Address</h3>
-            <p>100 Smile Street</p>
-            <p>Ottawa, ON</p>
-          </div>
-
-          <div className="contact-card">
-            <h3>Phone</h3>
-            <p>(613) 555-0198</p>
-          </div>
-
-          <div className="contact-card">
-            <h3>Email</h3>
-            <p>info@bidoofclinic.ca</p>
-          </div>
-
-          <div className="contact-card">
-            <h3>Hours</h3>
-            <p>Mon-Fri: 8 AM - 6 PM</p>
-            <p>Sat: 9 AM - 3 PM</p>
-          </div>
-        </div>
-      </section>
-
-      <footer className="footer">
-        <p>Designed by Kevin Yuan</p>
-        <p>SEG3125 Assignment 2 Service Site Prototype</p>
+      <footer>
+        <p>Designed by Kai Wen Yuan</p>
+        <p>SEG3125 Assignment 3 Memory Game Prototype</p>
       </footer>
     </main>
   );
