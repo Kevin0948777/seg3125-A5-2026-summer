@@ -1,275 +1,363 @@
 import { useMemo, useState } from "react";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 import "./App.css";
 
-const products = [
-  {
-    id: 1,
-    name: "Dog Nail Clipper Pro",
-    category: "Grooming",
-    pet: "Dog",
-    price: 18.99,
-    rating: 4.7,
-    tag: "Best Seller",
+const universityData = {
+  Ottawa: {
+    nameEn: "University of Ottawa",
+    nameFr: "Université d’Ottawa",
+    provinceEn: "Ontario",
+    provinceFr: "Ontario",
+    enrolment: {
+      2020: 41200,
+      2021: 42500,
+      2022: 43800,
+      2023: 45200,
+      2024: 46800,
+      2025: 47900,
+    },
+    undergraduate: 38100,
+    graduate: 9800,
   },
-  {
-    id: 2,
-    name: "Cat Nail Clipper Mini",
-    category: "Grooming",
-    pet: "Cat",
-    price: 14.99,
-    rating: 4.6,
-    tag: "Gentle Grip",
+  Carleton: {
+    nameEn: "Carleton University",
+    nameFr: "Université Carleton",
+    provinceEn: "Ontario",
+    provinceFr: "Ontario",
+    enrolment: {
+      2020: 30300,
+      2021: 30900,
+      2022: 31500,
+      2023: 32100,
+      2024: 32700,
+      2025: 33200,
+    },
+    undergraduate: 27200,
+    graduate: 6000,
   },
-  {
-    id: 3,
-    name: "Soft Pet Brush",
-    category: "Grooming",
-    pet: "Dog",
-    price: 16.5,
-    rating: 4.4,
-    tag: "Daily Care",
+  Toronto: {
+    nameEn: "University of Toronto",
+    nameFr: "Université de Toronto",
+    provinceEn: "Ontario",
+    provinceFr: "Ontario",
+    enrolment: {
+      2020: 93600,
+      2021: 94800,
+      2022: 96100,
+      2023: 97400,
+      2024: 98900,
+      2025: 100200,
+    },
+    undergraduate: 76100,
+    graduate: 24100,
   },
-  {
-    id: 4,
-    name: "Reflective Dog Leash",
-    category: "Walking",
-    pet: "Dog",
-    price: 22.99,
-    rating: 4.8,
-    tag: "Outdoor",
+  McGill: {
+    nameEn: "McGill University",
+    nameFr: "Université McGill",
+    provinceEn: "Quebec",
+    provinceFr: "Québec",
+    enrolment: {
+      2020: 39900,
+      2021: 40500,
+      2022: 41100,
+      2023: 41700,
+      2024: 42300,
+      2025: 42900,
+    },
+    undergraduate: 31800,
+    graduate: 11100,
   },
-  {
-    id: 5,
-    name: "Interactive Cat Toy",
-    category: "Toys",
-    pet: "Cat",
-    price: 12.99,
-    rating: 4.5,
-    tag: "Fun Pick",
+  UBC: {
+    nameEn: "University of British Columbia",
+    nameFr: "Université de la Colombie-Britannique",
+    provinceEn: "British Columbia",
+    provinceFr: "Colombie-Britannique",
+    enrolment: {
+      2020: 66800,
+      2021: 68100,
+      2022: 69400,
+      2023: 70700,
+      2024: 72100,
+      2025: 73500,
+    },
+    undergraduate: 58600,
+    graduate: 14900,
   },
-  {
-    id: 6,
-    name: "Small Memorial Urn",
-    category: "Memorial",
-    pet: "All Pets",
-    price: 29.99,
-    rating: 4.9,
-    tag: "Respectful",
+};
+
+const text = {
+  en: {
+    dashboardTitle: "Canadian University Enrolment Dashboard",
+    subtitle:
+      "Explore and compare synthetic enrolment data for selected Canadian universities.",
+    syntheticNotice:
+      "Educational prototype using synthetic data generated for this assignment.",
+    language: "Language",
+    overview: "Dashboard Overview",
+    totalStudents: "Students in selected year",
+    universities: "Universities shown",
+    selectedYear: "Selected year",
+    barTitle: "University Enrolment Comparison",
+    barDescription:
+      "Compare total enrolment across universities for the selected year.",
+    lineTitle: "Enrolment Trend",
+    lineDescription:
+      "View how enrolment changes over time for one selected university.",
+    year: "Year",
+    university: "University",
+    enrolment: "Enrolment",
+    students: "Students",
+    undergraduate: "Undergraduate",
+    graduate: "Graduate",
+    chartLanguageNote:
+      "Chart titles, labels, menus, and tooltips update with the selected language.",
+    source: "Data source",
+    sourceText: "Synthetic dataset created for SEG3125 Assignment 5",
+    designedBy: "Designed by Kai Wen Yuan",
   },
-];
+  fr: {
+    dashboardTitle: "Tableau de bord des inscriptions universitaires canadiennes",
+    subtitle:
+      "Explorez et comparez des données synthétiques sur les inscriptions dans certaines universités canadiennes.",
+    syntheticNotice:
+      "Prototype éducatif utilisant des données synthétiques créées pour ce travail.",
+    language: "Langue",
+    overview: "Aperçu du tableau de bord",
+    totalStudents: "Étudiants pour l’année choisie",
+    universities: "Universités affichées",
+    selectedYear: "Année sélectionnée",
+    barTitle: "Comparaison des inscriptions universitaires",
+    barDescription:
+      "Comparez le nombre total d’inscriptions entre les universités pour l’année sélectionnée.",
+    lineTitle: "Évolution des inscriptions",
+    lineDescription:
+      "Observez l’évolution des inscriptions d’une université au fil du temps.",
+    year: "Année",
+    university: "Université",
+    enrolment: "Inscriptions",
+    students: "Étudiants",
+    undergraduate: "Premier cycle",
+    graduate: "Cycles supérieurs",
+    chartLanguageNote:
+      "Les titres, étiquettes, menus et infobulles changent selon la langue choisie.",
+    source: "Source des données",
+    sourceText: "Jeu de données synthétiques créé pour le travail 5 de SEG3125",
+    designedBy: "Conçu par Kai Wen Yuan",
+  },
+};
+
+function formatNumber(value, language) {
+  return new Intl.NumberFormat(language === "fr" ? "fr-CA" : "en-CA").format(
+    value,
+  );
+}
 
 function App() {
-  const [category, setCategory] = useState("All");
-  const [pet, setPet] = useState("All");
-  const [price, setPrice] = useState("All");
-  const [cart, setCart] = useState([]);
-  const [checkoutStep, setCheckoutStep] = useState(1);
-  const [orderPlaced, setOrderPlaced] = useState(false);
-  const [surveySent, setSurveySent] = useState(false);
+  const [language, setLanguage] = useState("en");
+  const [comparisonYear, setComparisonYear] = useState("2025");
+  const [trendUniversity, setTrendUniversity] = useState("Ottawa");
 
-  const filteredProducts = useMemo(() => {
-    return products.filter((product) => {
-      const matchCategory = category === "All" || product.category === category;
-      const matchPet = pet === "All" || product.pet === pet || product.pet === "All Pets";
+  const t = text[language];
 
-      let matchPrice = true;
-      if (price === "Under $15") matchPrice = product.price < 15;
-      if (price === "$15 - $25") matchPrice = product.price >= 15 && product.price <= 25;
-      if (price === "Over $25") matchPrice = product.price > 25;
+  const universityName = (university) =>
+    language === "fr" ? university.nameFr : university.nameEn;
 
-      return matchCategory && matchPet && matchPrice;
-    });
-  }, [category, pet, price]);
+  const barData = useMemo(
+    () =>
+      Object.values(universityData).map((university) => ({
+        name: universityName(university),
+        value: university.enrolment[comparisonYear],
+      })),
+    [comparisonYear, language],
+  );
 
-  const total = cart.reduce((sum, item) => sum + item.price, 0);
+  const lineData = useMemo(() => {
+    const university = universityData[trendUniversity];
 
-  function addToCart(product) {
-    setCart([...cart, product]);
-  }
+    return Object.entries(university.enrolment).map(([year, value]) => ({
+      year,
+      value,
+    }));
+  }, [trendUniversity]);
 
-  function removeFromCart(index) {
-    setCart(cart.filter((_, i) => i !== index));
-  }
-
-  function placeOrder(event) {
-    event.preventDefault();
-    setOrderPlaced(true);
-    setCheckoutStep(4);
-  }
+  const totalStudents = barData.reduce((total, item) => total + item.value, 0);
 
   return (
-    <main className="store">
-      <nav className="navbar">
-        <h2>PawMart</h2>
+    <main className="dashboard">
+      <header className="topbar">
         <div>
-          <a href="#shop">Shop</a>
-          <a href="#cart">Cart ({cart.length})</a>
-          <a href="#survey">Survey</a>
+          <p className="course-label">SEG3125</p>
+          <h1>{t.dashboardTitle}</h1>
         </div>
-      </nav>
 
-      <section className="hero">
-        <p className="tag">PET CARE DEALS</p>
-        <h1>Everything your pet needs, all in one place.</h1>
-        <p>
-          Browse grooming tools, toys, walking accessories, and memorial items
-          with simple filters and clear product information.
-        </p>
-        <a href="#shop" className="hero-btn">Shop Deals</a>
+        <label className="language-control">
+          {t.language}
+          <select
+            value={language}
+            onChange={(event) => setLanguage(event.target.value)}
+          >
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+          </select>
+        </label>
+      </header>
+
+      <section className="intro">
+        <p>{t.subtitle}</p>
+        <div className="notice">{t.syntheticNotice}</div>
       </section>
 
-      <section className="section" id="shop">
-        <h2>Shop Products</h2>
-        <p className="section-intro">
-          Use the filters to narrow products by category, pet type, and price.
-        </p>
+      <section aria-labelledby="overview-title">
+        <h2 id="overview-title">{t.overview}</h2>
 
-        <div className="layout">
-          <aside className="filters">
-            <h3>Filters</h3>
+        <div className="summary-grid">
+          <article className="summary-card">
+            <span>{t.totalStudents}</span>
+            <strong>{formatNumber(totalStudents, language)}</strong>
+          </article>
 
-            <label>
-              Category
-              <select value={category} onChange={(e) => setCategory(e.target.value)}>
-                <option>All</option>
-                <option>Grooming</option>
-                <option>Walking</option>
-                <option>Toys</option>
-                <option>Memorial</option>
-              </select>
-            </label>
+          <article className="summary-card">
+            <span>{t.universities}</span>
+            <strong>{barData.length}</strong>
+          </article>
 
-            <label>
-              Pet Type
-              <select value={pet} onChange={(e) => setPet(e.target.value)}>
-                <option>All</option>
-                <option>Dog</option>
-                <option>Cat</option>
-              </select>
-            </label>
-
-            <label>
-              Price
-              <select value={price} onChange={(e) => setPrice(e.target.value)}>
-                <option>All</option>
-                <option>Under $15</option>
-                <option>$15 - $25</option>
-                <option>Over $25</option>
-              </select>
-            </label>
-          </aside>
-
-          <div className="product-grid">
-            {filteredProducts.map((product) => (
-              <article className="product-card" key={product.id}>
-                <span className="badge">{product.tag}</span>
-                <h3>{product.name}</h3>
-                <p>{product.category} • {product.pet}</p>
-                <p>Rating: ⭐ {product.rating}</p>
-                <strong>${product.price.toFixed(2)}</strong>
-                <button onClick={() => addToCart(product)}>Add to Cart</button>
-              </article>
-            ))}
-          </div>
+          <article className="summary-card">
+            <span>{t.selectedYear}</span>
+            <strong>{comparisonYear}</strong>
+          </article>
         </div>
       </section>
 
-      <section className="section cart-section" id="cart">
-        <h2>Checkout</h2>
+      <section className="chart-card" aria-labelledby="bar-chart-title">
+        <div className="chart-header">
+          <div>
+            <h2 id="bar-chart-title">{t.barTitle}</h2>
+            <p>{t.barDescription}</p>
+          </div>
 
-        <div className="steps">
-          <span className={checkoutStep >= 1 ? "active" : ""}>1. Cart</span>
-          <span className={checkoutStep >= 2 ? "active" : ""}>2. Information</span>
-          <span className={checkoutStep >= 3 ? "active" : ""}>3. Payment</span>
-          <span className={checkoutStep >= 4 ? "active" : ""}>4. Confirmation</span>
+          <label>
+            {t.year}
+            <select
+              value={comparisonYear}
+              onChange={(event) => setComparisonYear(event.target.value)}
+            >
+              {["2020", "2021", "2022", "2023", "2024", "2025"].map(
+                (year) => (
+                  <option key={year}>{year}</option>
+                ),
+              )}
+            </select>
+          </label>
         </div>
 
-        {checkoutStep === 1 && (
-          <div className="checkout-box">
-            <h3>Your Cart</h3>
-
-            {cart.length === 0 ? (
-              <p>Your cart is empty.</p>
-            ) : (
-              cart.map((item, index) => (
-                <div className="cart-item" key={index}>
-                  <span>{item.name}</span>
-                  <strong>${item.price.toFixed(2)}</strong>
-                  <button onClick={() => removeFromCart(index)}>Remove</button>
-                </div>
-              ))
-            )}
-
-            <h3>Total: ${total.toFixed(2)}</h3>
-
-            <button disabled={cart.length === 0} onClick={() => setCheckoutStep(2)}>
-              Continue to Information
-            </button>
-          </div>
-        )}
-
-        {checkoutStep === 2 && (
-          <form className="checkout-box" onSubmit={(e) => { e.preventDefault(); setCheckoutStep(3); }}>
-            <h3>Customer Information</h3>
-            <input required placeholder="Full Name" />
-            <input required type="email" placeholder="Email Address" />
-            <input required placeholder="Shipping Address" />
-            <button>Continue to Payment</button>
-          </form>
-        )}
-
-        {checkoutStep === 3 && (
-          <form className="checkout-box" onSubmit={placeOrder}>
-            <h3>Payment</h3>
-            <input required placeholder="Cardholder Name" />
-            <input required placeholder="Card Number" />
-            <input required placeholder="Expiry Date" />
-            <input required placeholder="CVV" />
-            <button>Place Order</button>
-          </form>
-        )}
-
-        {orderPlaced && (
-          <div className="checkout-box success">
-            <h3>Order Confirmed</h3>
-            <p>Thank you for shopping with PawMart. Your order has been placed.</p>
-          </div>
-        )}
+        <div className="chart-area">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart
+              data={barData}
+              margin={{ top: 20, right: 20, left: 20, bottom: 90 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" vertical={false} />
+              <XAxis
+                dataKey="name"
+                angle={-25}
+                textAnchor="end"
+                interval={0}
+                height={105}
+              />
+              <YAxis
+                tickFormatter={(value) => formatNumber(value, language)}
+              />
+              <Tooltip
+                formatter={(value) => [
+                  formatNumber(value, language),
+                  t.students,
+                ]}
+              />
+              <Legend />
+              <Bar
+                dataKey="value"
+                name={t.enrolment}
+                fill="#2563eb"
+                radius={[8, 8, 0, 0]}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </section>
 
-      <section className="section survey-section" id="survey">
-        <h2>Tell Us About Your Experience</h2>
-        <p className="section-intro">
-          Your feedback helps us improve PawMart for future pet owners.
-        </p>
-
-        {!surveySent ? (
-          <form className="survey-form" onSubmit={(e) => { e.preventDefault(); setSurveySent(true); }}>
-            <label>
-              How was your experience?
-              <select required>
-                <option>Excellent</option>
-                <option>Good</option>
-                <option>Okay</option>
-                <option>Poor</option>
-              </select>
-            </label>
-
-            <textarea required placeholder="Leave a short comment..." />
-
-            <button>Submit Survey</button>
-          </form>
-        ) : (
-          <div className="checkout-box success">
-            <h3>Thank you!</h3>
-            <p>Your feedback was submitted successfully.</p>
+      <section className="chart-card" aria-labelledby="line-chart-title">
+        <div className="chart-header">
+          <div>
+            <h2 id="line-chart-title">{t.lineTitle}</h2>
+            <p>{t.lineDescription}</p>
           </div>
-        )}
+
+          <label>
+            {t.university}
+            <select
+              value={trendUniversity}
+              onChange={(event) => setTrendUniversity(event.target.value)}
+            >
+              {Object.entries(universityData).map(([key, university]) => (
+                <option key={key} value={key}>
+                  {universityName(university)}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+
+        <div className="chart-area">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart
+              data={lineData}
+              margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" vertical={false} />
+              <XAxis dataKey="year" />
+              <YAxis
+                domain={["dataMin - 1500", "dataMax + 1500"]}
+                tickFormatter={(value) => formatNumber(value, language)}
+              />
+              <Tooltip
+                formatter={(value) => [
+                  formatNumber(value, language),
+                  t.students,
+                ]}
+                labelFormatter={(label) => `${t.year}: ${label}`}
+              />
+              <Legend />
+              <Line
+                type="monotone"
+                dataKey="value"
+                name={t.enrolment}
+                stroke="#dc2626"
+                strokeWidth={4}
+                activeDot={{ r: 7 }}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+
+        <p className="localization-note">{t.chartLanguageNote}</p>
       </section>
 
       <footer>
-        <p>Designed by Kai Wen Yuan</p>
-        <p>SEG3125 Assignment 4 E-Commerce Prototype</p>
+        <p>
+          <strong>{t.source}:</strong> {t.sourceText}
+        </p>
+        <p>{t.designedBy}</p>
       </footer>
     </main>
   );

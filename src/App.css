@@ -8,330 +8,224 @@ html {
 
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f5f7fb;
-  color: #1e293b;
+  min-width: 320px;
+  background: #f4f7fb;
+  color: #172033;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
 }
 
-.store {
+button,
+select,
+input {
+  font: inherit;
+}
+
+.dashboard {
   width: 100%;
+  min-height: 100vh;
 }
 
 /* ===========================
-   NAVBAR
+   TOP BAR
 =========================== */
 
-.navbar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: white;
-  padding: 18px 7%;
+.topbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #dbe3ee;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.navbar h2 {
-  margin: 0;
-  color: #2d6cdf;
-}
-
-.navbar div {
-  display: flex;
   gap: 30px;
+  padding: 35px 7%;
+  background: #ffffff;
+  border-bottom: 1px solid #dbe3ee;
 }
 
-.navbar a {
-  text-decoration: none;
+.course-label {
+  margin: 0 0 8px;
+  color: #2563eb;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+
+.topbar h1 {
+  margin: 0;
+  color: #172033;
+  font-size: 40px;
+  line-height: 1.2;
+}
+
+.language-control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   color: #334155;
   font-weight: 700;
 }
 
-.navbar a:hover {
-  color: #2d6cdf;
+.language-control select {
+  padding: 10px 14px;
+  background: #ffffff;
+  color: #172033;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 /* ===========================
-   HERO
+   INTRODUCTION
 =========================== */
 
-.hero {
-  padding: 90px 7%;
+.intro {
+  padding: 50px 7%;
   text-align: center;
-  background: linear-gradient(135deg, #2d6cdf, #6ea8ff);
-  color: white;
+  background: linear-gradient(135deg, #eaf2ff, #ffffff);
 }
 
-.tag {
-  letter-spacing: 3px;
-  font-weight: 700;
-  margin-bottom: 15px;
-}
-
-.hero h1 {
-  font-size: 64px;
-  font-weight: 800;
-  line-height: 1.2;
-  margin: 20px 0 35px;
-}
-
-.hero p {
-  max-width: 800px;
-  margin: 0 auto 30px;
-  font-size: 20px;
-  line-height: 1.8;
-}
-
-.hero-btn {
-  display: inline-block;
-  margin-top: 35px;
-  padding: 15px 30px;
-  background: white;
-  color: #2d6cdf;
-  border-radius: 999px;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.hero-btn:hover {
-  background: #edf4ff;
-}
-
-/* ===========================
-   SECTIONS
-=========================== */
-
-.section {
-  padding: 80px 7%;
-}
-
-.section h2 {
-  text-align: center;
-  font-size: 42px;
-  margin-bottom: 20px;
-}
-
-.section-intro {
+.intro > p {
   max-width: 850px;
-  margin: auto auto 45px;
-  text-align: center;
-  color: #64748b;
+  margin: 0 auto 25px;
+  color: #475569;
+  font-size: 20px;
   line-height: 1.7;
 }
 
-/* ===========================
-   FILTERS
-=========================== */
-
-.layout {
-  display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: 35px;
-}
-
-.filters {
-  background: white;
-  padding: 25px;
-  border-radius: 18px;
-  height: fit-content;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-}
-
-.filters h3 {
-  margin-top: 0;
-  color: #2d6cdf;
-}
-
-.filters label {
-  display: block;
-  margin-top: 20px;
+.notice {
+  display: inline-block;
+  padding: 12px 20px;
+  background: #dbeafe;
+  color: #1e40af;
+  border-radius: 8px;
+  font-size: 14px;
   font-weight: 700;
 }
 
-.filters select {
-  width: 100%;
-  margin-top: 8px;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #cbd5e1;
+/* ===========================
+   GENERAL SECTIONS
+=========================== */
+
+.dashboard > section {
+  padding-left: 7%;
+  padding-right: 7%;
+}
+
+#overview-title {
+  margin: 60px 0 30px;
+  text-align: center;
+  color: #172033;
+  font-size: 36px;
 }
 
 /* ===========================
-   PRODUCTS
+   SUMMARY CARDS
 =========================== */
 
-.product-grid {
+.summary-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 25px;
+  margin-bottom: 60px;
 }
 
-.product-card {
-  background: white;
-  padding: 25px;
-  border-radius: 20px;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
-  transition: 0.25s;
+.summary-card {
+  min-height: 150px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
 }
 
-.product-card:hover {
-  transform: translateY(-6px);
+.summary-card span {
+  margin-bottom: 15px;
+  color: #64748b;
+  font-size: 16px;
+  font-weight: 700;
 }
 
-.badge {
-  display: inline-block;
-  background: #2d6cdf;
-  color: white;
-  padding: 5px 12px;
-  border-radius: 20px;
-  font-size: 13px;
-}
-
-.product-card h3 {
-  margin: 18px 0 10px;
-}
-
-.product-card strong {
-  display: block;
-  margin: 15px 0;
-  color: #2d6cdf;
-  font-size: 20px;
-}
-
-.product-card button {
-  width: 100%;
-  padding: 12px;
-  background: #2d6cdf;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-.product-card button:hover {
-  background: #215bc3;
+.summary-card strong {
+  color: #2563eb;
+  font-size: 36px;
 }
 
 /* ===========================
-   CHECKOUT
+   CHART CARDS
 =========================== */
 
-.steps {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-bottom: 35px;
-}
-
-.steps span {
-  background: #dbeafe;
-  padding: 10px 20px;
-  border-radius: 25px;
-  font-weight: bold;
-}
-
-.steps .active {
-  background: #2d6cdf;
-  color: white;
-}
-
-.checkout-box {
-  max-width: 650px;
-  margin: auto;
-  background: white;
-  padding: 35px;
+.chart-card {
+  max-width: 1300px;
+  margin: 0 auto 50px;
+  padding-top: 35px;
+  padding-bottom: 35px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.07);
 }
 
-.checkout-box input,
-.checkout-box button {
-  width: 100%;
-  padding: 13px;
-  margin-top: 15px;
-  border-radius: 10px;
-}
-
-.checkout-box input {
-  border: 1px solid #cbd5e1;
-}
-
-.checkout-box button {
-  background: #2d6cdf;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.checkout-box button:hover {
-  background: #215bc3;
-}
-
-.cart-item {
+.chart-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin: 15px 0;
+  align-items: flex-start;
+  gap: 30px;
+  margin-bottom: 30px;
 }
 
-.cart-item button {
-  width: auto;
-  padding: 8px 14px;
+.chart-header h2 {
+  margin: 0 0 10px;
+  color: #172033;
+  font-size: 30px;
 }
 
-.success {
-  border-left: 8px solid #22c55e;
+.chart-header p {
+  max-width: 700px;
+  margin: 0;
+  color: #64748b;
+  line-height: 1.6;
 }
 
-/* ===========================
-   SURVEY
-=========================== */
-
-.survey-form {
-  max-width: 650px;
-  margin: auto;
-  background: white;
-  padding: 35px;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+.chart-header label {
+  min-width: 210px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #334155;
+  font-weight: 700;
 }
 
-.survey-form label {
-  display: block;
-  font-weight: bold;
-}
-
-.survey-form select,
-.survey-form textarea {
+.chart-header select {
   width: 100%;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  padding: 12px;
-  border-radius: 10px;
+  padding: 11px 14px;
+  background: #ffffff;
+  color: #172033;
   border: 1px solid #cbd5e1;
-}
-
-.survey-form textarea {
-  height: 120px;
-  resize: vertical;
-}
-
-.survey-form button {
-  width: 100%;
-  padding: 14px;
-  background: #2d6cdf;
-  color: white;
-  border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
 }
 
-.survey-form button:hover {
-  background: #215bc3;
+/* ===========================
+   CHART AREA
+=========================== */
+
+.chart-area {
+  width: 100%;
+  height: 430px;
+  margin-top: 20px;
+}
+
+.localization-note {
+  margin: 25px 0 0;
+  padding: 15px 20px;
+  background: #eff6ff;
+  color: #1e40af;
+  border-left: 4px solid #2563eb;
+  border-radius: 6px;
+  line-height: 1.6;
 }
 
 /* ===========================
@@ -339,41 +233,122 @@ body {
 =========================== */
 
 footer {
-  background: #1e293b;
-  color: white;
+  margin-top: 70px;
+  padding: 35px 7%;
+  background: #172033;
+  color: #e2e8f0;
   text-align: center;
-  padding: 35px;
 }
 
 footer p {
-  margin: 8px;
+  margin: 8px 0;
+  line-height: 1.6;
 }
 
 /* ===========================
-   RESPONSIVE
+   HOVER AND FOCUS
+=========================== */
+
+.summary-card {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.1);
+}
+
+select:focus {
+  outline: 3px solid rgba(37, 99, 235, 0.2);
+  border-color: #2563eb;
+}
+
+/* ===========================
+   TABLET
 =========================== */
 
 @media (max-width: 900px) {
-  .layout {
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .topbar h1 {
+    font-size: 34px;
+  }
+
+  .summary-grid {
     grid-template-columns: 1fr;
   }
 
-  .navbar {
+  .chart-header {
     flex-direction: column;
-    gap: 15px;
   }
 
-  .navbar div {
-    flex-wrap: wrap;
-    justify-content: center;
+  .chart-header label {
+    width: 100%;
   }
 
-  .hero h1 {
-    font-size: 42px;
+  .chart-area {
+    height: 400px;
+  }
+}
+
+/* ===========================
+   MOBILE
+=========================== */
+
+@media (max-width: 600px) {
+  .topbar {
+    padding: 25px 5%;
   }
 
-  .steps {
+  .topbar h1 {
+    font-size: 28px;
+  }
+
+  .language-control {
+    width: 100%;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+  }
+
+  .language-control select {
+    width: 100%;
+  }
+
+  .intro {
+    padding: 40px 5%;
+  }
+
+  .intro > p {
+    font-size: 17px;
+  }
+
+  .dashboard > section {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  #overview-title {
+    font-size: 30px;
+  }
+
+  .summary-card strong {
+    font-size: 30px;
+  }
+
+  .chart-card {
+    border-radius: 14px;
+  }
+
+  .chart-header h2 {
+    font-size: 25px;
+  }
+
+  .chart-area {
+    height: 360px;
   }
 }
